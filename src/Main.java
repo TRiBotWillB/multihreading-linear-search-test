@@ -11,7 +11,7 @@ public class Main {
     private static int numberOfThreads = 1;
 
     public static void main(String[] args) {
-        numberOfThreads = Runtime.getRuntime().availableProcessors();
+        numberOfThreads =  Runtime.getRuntime().availableProcessors();
 
         userInput();
 
@@ -53,10 +53,10 @@ public class Main {
 
         for(int i = 0; i < numberOfThreads; i++) {
             if(i == 1) {
-                t = new LinearSearchThread(array, 0, sectionNum - 1, searchKey);
+                t = new LinearSearchThread(array, 0, sectionNum - 1, searchKey, "Thread " + i);
 
             } else {
-                t = new LinearSearchThread(array,i * sectionNum, ((i + 1) * sectionNum) - 1, searchKey);
+                t = new LinearSearchThread(array,i * sectionNum, ((i + 1) * sectionNum) - 1, searchKey, "Thread " + i);
 
             }
             threads.add(t);
@@ -71,7 +71,7 @@ public class Main {
         while(loop) {
             for(LinearSearchThread t : threads) {
                 if(t.foundResult) {
-                    System.out.println("FOUND: " + t.result);
+                    System.out.println(t.getName()+ " found: " + t.result);
 
                     stopThreads();
                     loop = false;
